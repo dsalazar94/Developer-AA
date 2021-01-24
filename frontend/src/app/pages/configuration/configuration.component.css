@@ -1,0 +1,34 @@
+.mat-tab-group {
+  margin-bottom: 48px;
+}
+
+mat-table {
+  width: 350px;
+  border-spacing: 0 8px !important;
+  justify-content: center;
+}
+
+mat-cell{
+  border: 1px solid gray;
+  display:flex;
+  justify-content:center;
+}
+
+mat-header-cell{
+  border: 1px solid gray;
+  display:flex;
+  justify-content:center;
+}
+
+mat-select{
+  border: 1px solid gray;
+  width: 200px;
+}
+
+.mat-column-id{
+  max-width: 100px;
+}
+
+.mat-column-description{
+  max-width: 250px;
+}

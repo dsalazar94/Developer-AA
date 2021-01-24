@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">{{data['profile'].name}} {{data['profile'].lastname}}</h4>
+  </div>
+  <div class="card-body">
+    <div mat-dialog-content>
+      <label>Seleccionar nuevo rol:</label> <br/>
+      <select #rol required [value]="data['profile'].rol">
+        <option value=1>Administrador</option>
+        <option value=2>Ingresador de datos</option>
+        <option value=3>Visualizador</option>
+      </select>
+    </div>
+    <br/>
+    <div mat-dialog-actions>
+      <button class="btn btn-warning" (click)="cancel()">Atrás</button>
+      <button class="btn btn-primary" (click)="update(rol.value)">Actualizar</button>
+    </div>
+  </div>
+</div>

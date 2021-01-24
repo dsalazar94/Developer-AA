@@ -1,0 +1,97 @@
+<div class="card">
+  <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="LISTA DE VALORES">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">REFERENCIAS</h4>
+        </div>
+        <div class="card-body">
+          <form class="container" [formGroup]="ReferenceForm" (ngSubmit)="selectReference()">
+            <div class="row">
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <mat-select placeholder="Selecccionar una referencia" formControlName="Ref_no" [(ngModel)]="selectedReference">
+                  <mat-option *ngFor="let reference of referenceHeaders" [value]="reference.ref_no">
+                    {{reference.ref_descripcion}}
+                  </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+              <div class="col-md-6 pr-2"></div>
+              <div class="col-md-5 pr-2">
+                <button type="submit" class="btn btn-primary"><mat-icon>search</mat-icon></button>
+                <button *ngIf="openReference == true" class="btn btn-primary" (click)="addRecord(1, this.selectedReference)"><mat-icon>add</mat-icon></button>
+              </div>
+            </div>
+          </form>
+
+          <div class="row" *ngIf="openReference == true">
+            <div class="col-md-3 pl-1"><br/></div>
+            <div class="col-md-7 pl-1"></div>
+            <div class="col-md-3 pr-1"></div>
+
+            <div class="col-md-7 pr-1">
+              <mat-table [dataSource]="referenceDetails" >
+
+                <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef>No</mat-header-cell>
+                  <mat-cell *matCellDef="let reference">
+                    <button mat-button (click)="updateReference(reference)">{{reference.ref_id}}</button>
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="description">
+                  <mat-header-cell *matHeaderCellDef>DESCRIPCIÓN</mat-header-cell>
+                  <mat-cell *matCellDef="let reference">
+                    {{reference.ref_desc}}
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let reference; columns: displayedColumns;"></mat-row>
+              </mat-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="TIPO DE OPERACIÓN">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">OPERACIONES</h4>
+        </div>
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-md-5 pr-2"><button class="btn btn-primary" (click)="addRecord(2, 0)"><mat-icon>add</mat-icon></button><br/></div>
+            <div class="col-md-7 pl-1"></div>
+            <div class="col-md-3 pr-1"></div>
+
+            <div class="col-md-7 pr-1">
+              <mat-table [dataSource]="operationTypes" >
+
+                <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef>Codigo operación</mat-header-cell>
+                  <mat-cell *matCellDef="let operations">
+                    <button mat-button (click)="updateOperation(operations)">{{operations.codigo_op}}</button>
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="description">
+                  <mat-header-cell *matHeaderCellDef>DESCRIPCIÓN</mat-header-cell>
+                  <mat-cell *matCellDef="let operations">
+                    {{operations.descripcion}}
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let operations; columns: displayedColumns;"></mat-row>
+              </mat-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

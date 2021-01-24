@@ -1,0 +1,17 @@
+mat-table {
+  width: 950px;
+  border-spacing: 0 8px !important;
+  justify-content: center;
+}
+
+mat-cell{
+  border: 1px solid gray;
+  display:flex;
+  justify-content:center;
+}
+
+mat-header-cell{
+  border: 1px solid gray;
+  display:flex;
+  justify-content:center;
+}

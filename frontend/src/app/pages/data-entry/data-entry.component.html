@@ -1,0 +1,123 @@
+<div class="card">
+  <div class="card-header">
+    <mat-form-field color="accent" appearance="fill">
+      <mat-label>Seleccionar Finca</mat-label>
+      <mat-select [(value)]="fincaSelected" (selectionChange)="getZonas(fincaSelected)">
+        <mat-option *ngFor="let Finca of Fincas" [(value)]="Finca.finca_id">
+          {{Finca.nombre}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br/>
+    <mat-form-field color="accent" appearance="fill">
+      <mat-label>Seleccionar fecha</mat-label>
+      <input matInput [matDatepicker]="picker" [formControl]="date" (dateInput)="getDataFromDate($event)" (dateChange)="getDataFromDate($event)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <br/>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="card-body">
+    <div class="row">
+      <form novalidate #myForm="ngForm">
+        <kendo-grid
+            [data]="view | async"
+            [height]="533"
+            [pageSize]="gridState.take" [skip]="gridState.skip" [sort]="gridState.sort"
+            [pageable]="true" [sortable]="true"
+            (dataStateChange)="onStateChange($event)"
+            (edit)="editHandler($event)" (cancel)="cancelHandler($event)"
+            (save)="saveHandler($event)" (remove)="removeHandler($event)"
+            (add)="addHandler($event, myForm)"
+            [navigable]="true"
+        >
+          <ng-template kendoGridToolbarTemplate>
+              <button kendoGridAddCommand type="button"><mat-icon>add</mat-icon></button>
+          </ng-template>
+
+          <kendo-grid-column field="fecha" title="Fecha">
+              <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+                  <input [(ngModel)]="dataItem.fecha" kendoGridFocusable name="fecha" class="k-textbox"/>
+              </ng-template>
+          </kendo-grid-column>
+
+          <kendo-grid-column field="zona" title="Zona">
+              <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+                <mat-select [(ngModel)]="dataItem.zona" kendoGridFocusable name="zona" class="k-textbox" (selectionChange)="getGuacho(dataItem.zona)">
+                  <mat-option *ngFor="let Zona of Zonas" [(value)]="Zona.zona_id">
+                    {{Zona.descripcion}}
+                  </mat-option>
+                  <mat-option [value]="0">NINGUNO</mat-option>
+                </mat-select>
+              </ng-template>
+          </kendo-grid-column>
+
+          <kendo-grid-column field="guacho" title="Guacho">
+            <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+              <mat-select [(ngModel)]="dataItem.guacho" kendoGridFocusable name="guacho" class="k-textbox" (selectionChange)="getPlanta(dataItem.guacho)">
+                <mat-option *ngFor="let Guacho of Guachos" [(value)]="Guacho.guacho_id">
+                  {{Guacho.descripcion}}
+                </mat-option>
+                <mat-option [value]="0">NINGUNO</mat-option>
+              </mat-select>
+            </ng-template>
+          </kendo-grid-column>
+
+          <kendo-grid-column field="planta" title="Planta">
+            <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+              <mat-select [(ngModel)]="dataItem.planta" kendoGridFocusable name="planta" class="k-textbox" (selectionChange)="getFlor(dataItem.guacho)">
+                <mat-option *ngFor="let Planta of Plantas" [(value)]="Planta.planta_id">
+                  {{Planta.descripcion}}
+                </mat-option>
+                <mat-option [value]="0">NINGUNO</mat-option>
+              </mat-select>
+            </ng-template>
+          </kendo-grid-column>
+
+          <kendo-grid-column field="flor" title="Flor">
+            <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+              <mat-select  [(ngModel)]="dataItem.flor" kendoGridFocusable name="flor" class="k-textbox" (selectionChange)="selectFlor(dataItem.flor)">
+                <mat-option *ngFor="let Flor of Flores" [(value)]="Flor.flor_id">
+                  {{Flor.descripcion}}
+                </mat-option>
+                <mat-option [value]="0">NINGUNO</mat-option>
+              </mat-select>
+            </ng-template>
+          </kendo-grid-column>
+
+          <kendo-grid-column field="operacion" title="Operacion">
+            <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+              <mat-select  [(ngModel)]="dataItem.operacion" kendoGridFocusable name="operacion" class="k-textbox" (selectionChange)="selectOperation(dataItem.flor)">
+                <mat-option *ngFor="let operation of operationTypes" [(value)]="operation.codigo_op">
+                  {{operation.descripcion}}
+                </mat-option>
+                <mat-option [value]="0">NINGUNO</mat-option>
+              </mat-select>
+            </ng-template>
+          </kendo-grid-column>
+
+          <kendo-grid-column field="observacion" title="Observaciones">
+            <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+                <input [(ngModel)]="dataItem.observacion" kendoGridFocusable name="observacion" class="k-textbox"/>
+            </ng-template>
+          </kendo-grid-column>
+
+          <kendo-grid-command-column title="Comandos" width="120">
+              <ng-template kendoGridCellTemplate let-isNew="isNew">
+                  <button kendoGridEditCommand type="button" [primary]="true"><mat-icon>edit</mat-icon></button>
+                  <button kendoGridRemoveCommand type="button"><mat-icon>remove_circle</mat-icon></button>
+                  <button kendoGridSaveCommand type="button" [disabled]="myForm.invalid || myForm.pristine">
+                    <mat-icon>check</mat-icon>
+                  </button>
+                  <button kendoGridCancelCommand type="button"><mat-icon>cancel</mat-icon></button>
+              </ng-template>
+          </kendo-grid-command-column>
+
+        </kendo-grid>
+    </form>
+    </div>
+  </div>
+</div>

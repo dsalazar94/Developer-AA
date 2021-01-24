@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Tipo de Operación: {{data.operation.codigo_op}}</h4>
+  </div>
+  <div class="card-body">
+    <div mat-dialog-content>
+      <mat-form-field>
+        <label>Editar descripción:</label> <br/>
+        <input #descrip matInput type="text" value={{data.operation.descripcion}}>
+      </mat-form-field>
+    </div>
+    <br/>
+    <div mat-dialog-actions>
+      <button class="btn btn-warning" (click)="cancel()">Atrás</button>
+      <button class="btn btn-danger" (click)="erase(data.operation)">Borrar</button>
+      <button class="btn btn-primary" (click)="update(data.operation, descrip.value)">Actualizar</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,125 @@
+<div class="row">
+
+  <div class="col-md-4">
+
+    <div class="card card">
+      <div class="card-header">
+        <h4 class="card-title">Información de perfil</h4>
+      </div>
+      <div class="card-body">
+        <div class="author">
+          <h5 class="title text-center">{{this.currentUser.name}} {{this.currentUser.lastname}}</h5>
+          <p class="description text-center">
+            {{this.currentUser.email}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">Editar Perfil</h5>
+      </div>
+      <div class="card-body">
+
+        <form class="container" [formGroup]="UpdateUserForm" (ngSubmit)="updateProfile()">
+          <div class="row">
+            <div class="col-md-5 pr-1">
+              <div class="form-group">
+                <label>Compañia</label>
+                <input type="text" class="form-control" disabled="" placeholder="Company" value="MinFarms">
+              </div>
+            </div>
+            <div class="col-md-7 pl-1">
+              <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="text" formControlName="email" [value]="this.currentUser.email" class="form-control mb-4" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+               <!--<div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Correo eletrónico es requerido</div>
+              </div>-->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 pr-1">
+              <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" formControlName="name" [value]="this.currentUser.name" class="form-control mb-4" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                <!--<div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                  <div *ngIf="f.name.errors.required">Nombre es requerido</div>
+                </div>-->
+              </div>
+            </div>
+            <div class="col-md-6 pl-1">
+              <div class="form-group">
+                <label for="lastname">Apellido</label>
+                <input type="text" formControlName="lastname" [value]="this.currentUser.lastname" class="form-control mb-4" [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
+                <!--<div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+                    <div *ngIf="f.lastname.errors.required">Apellido es requerido</div>
+                </div>-->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit" class="btn btn-primary btn-round">Actualizar Perfil</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="this.currentUser.rol == 1" class="col-md-12">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">Gestionar permisos</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-5 pr-2"><br/></div>
+          <div class="col-md-7 pl-1"></div>
+          <div class="col-md-2 pr-1"></div>
+          <div class="col-md-7 pr-1">
+            <mat-table [dataSource]="users" >
+
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+                <mat-cell *matCellDef="let user">
+                  <button mat-button (click)="updatePermissions(user)">{{user.name}} {{user.lastname}}</button>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef>Correo eletrónico</mat-header-cell>
+                <mat-cell *matCellDef="let user">
+                  {{user.email}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="rol">
+                <mat-header-cell *matHeaderCellDef>Rol</mat-header-cell>
+                <mat-cell *matCellDef="let user">
+                  <div *ngIf="user.rol == 1">
+                    Administrador
+                  </div>
+                  <div *ngIf="user.rol == 2">
+                    Ingresador de datos
+                  </div>
+                  <div *ngIf="user.rol == 3">
+                    Visualizador
+                  </div>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let user; columns: displayedColumns;"></mat-row>
+            </mat-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

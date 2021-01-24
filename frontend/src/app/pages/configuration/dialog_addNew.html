@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">{{title}}</h4>
+  </div>
+  <div class="card-body">
+    <div mat-dialog-content>
+      <mat-form-field [hidden]="this.newReference">
+        <label>Código:</label><br/>
+        <input #cod matInput type="text">
+      </mat-form-field><br/>
+      <mat-form-field>
+        <label>Descripción:</label> <br/>
+        <input #descrip matInput type="text">
+      </mat-form-field><br/>
+    </div>
+    <br/>
+    <div mat-dialog-actions>
+      <button class="btn btn-warning" (click)="cancel()">Atrás</button>
+      <button [hidden]="this.newReference" class="btn btn-primary" (click)="addReference(cod.value, descrip.value)">Ingresar</button>
+      <button [hidden]="this.newOperation" class="btn btn-primary" (click)="addOperation(descrip.value)">Ingresar</button>
+    </div>
+  </div>
+</div>

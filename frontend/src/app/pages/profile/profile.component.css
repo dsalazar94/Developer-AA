@@ -1,0 +1,22 @@
+mat-table {
+  width: 650px;
+  border-spacing: 0 8px !important;
+  justify-content: center;
+}
+
+mat-cell{
+  border: 1px solid gray;
+  display:flex;
+  justify-content:center;
+}
+
+mat-header-cell{
+  border: 1px solid gray;
+  display:flex;
+  justify-content:center;
+}
+
+mat-select{
+  border: 1px solid gray;
+  width: 200px;
+}

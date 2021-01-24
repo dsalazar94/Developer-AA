@@ -1,0 +1,14 @@
+<footer class="footer">
+    <div class="container-fluid">
+        <nav class="pull-left">
+            <ul>
+                <li>
+                  {{this.currentUser.name}} {{this.currentUser.lastname}} | {{date | date}}
+                </li>
+            </ul>
+        </nav>
+        <div class="copyright pull-right">
+            &copy; {{date | date: 'yyyy'}}, MinFarms
+        </div>
+    </div>
+</footer>
